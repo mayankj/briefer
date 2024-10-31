@@ -8,7 +8,7 @@ import Layout from '@/components/Layout'
 import { useUsers } from '@/hooks/useUsers'
 import { useStringQuery } from '@/hooks/useQueryArgs'
 import { useSession } from '@/hooks/useAuth'
-import { UserWorkspaceRole } from '@briefer/database'
+import type { UserWorkspaceRole } from '@briefer/database'
 import clsx from 'clsx'
 import { Tooltip } from '@/components/Tooltips'
 import { PasswordDialog } from './new'
@@ -29,7 +29,7 @@ export default function UsersPage() {
   const session = useSession()
   const router = useRouter()
 
-  const isAdmin = session.data?.roles[workspaceId] === UserWorkspaceRole.admin
+  const isAdmin = session.data?.roles[workspaceId] === 'admin'
 
   const [users, { removeUser, updateUser, resetPassword }] =
     useUsers(workspaceId)
@@ -105,7 +105,7 @@ export default function UsersPage() {
             onRemoveUser={removeUser}
             onChangeRole={onChangeRole}
             onResetPassword={onResetPassword}
-            role={session.data?.roles[workspaceId] ?? UserWorkspaceRole.viewer}
+            role={session.data?.roles[workspaceId] ?? 'viewer'}
           />
         </div>
       </div>
